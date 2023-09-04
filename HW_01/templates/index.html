@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ super() }} - {{ title }}
+{% endblock %}
+
+{% block content %}
+
+<div class="content">
+    <div class="container item-flex">
+        <div class="item">
+            <a href="{{ url_for('clothes') }}"><img src="{{ url_for('static', filename='img/clothes.png') }}" alt="Одежда"></a>
+            <hr>
+            <center><a href="{{ url_for('clothes') }}"><button type="button" class="btn btn-primary btn-lg">Одежда</button></a></center>
+        </div>
+        <div class="item">
+            <a href="{{ url_for('shoes') }}"><img src="{{ url_for('static', filename='img/shoes.png') }}" alt="Обувь"></a>
+            <hr>
+            <center><a href="{{ url_for('shoes') }}"><button type="button" class="btn btn-primary btn-lg">Обувь</button></a></center>
+        </div>
+        <div class="item">
+            <a href="{{ url_for('jacket') }}"><img src="{{ url_for('static', filename='img/jacket.png') }}" alt="Куртки"></a>
+            <hr>
+            <center><a href="{{ url_for('jacket') }}"><button type="button" class="btn btn-primary btn-lg">Куртки</button></a></center>
+        </div>        
+    </div>
+</div>   
+<div class="footer">
+    <div class="container">
+        All rights reserved (c)
+    </div>
+</div>
+{% endblock %}

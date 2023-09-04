@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ super() }} - {{ title }}
+{% endblock %}
+
+{% block content %}    
+<div class="container">
+    <h1>Обувь</h1>
+    <div class="menu">
+        <div>
+            <a href="{{ url_for('shoes') }}"><img src="{{ url_for('static', filename='img/shoes1.png') }}" alt="shoes1"></a>
+            <hr>
+            <p><strong>Цена: 100 $ </strong></p>
+            <hr>
+        </div>
+        <div>
+            <a href="{{ url_for('shoes') }}"><img src="{{ url_for('static', filename='img/shoes2.png') }}" alt="shoes2"></a>
+            <hr>
+            <p><strong>Цена: 200 $ </strong></p>
+            <hr>
+        </div>
+        <div>
+            <a href="{{ url_for('shoes') }}"><img src="{{ url_for('static', filename='img/shoes3.png') }}" alt="shoes3"></a>
+            <hr>
+            <p><strong>Цена: 300 $ </strong></p>
+            <hr>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="container">
+        All rights reserved (c)
+    </div>
+</div>
+{% endblock %}
