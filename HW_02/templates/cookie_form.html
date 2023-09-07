@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block content %}
+<div class="container item-flex">
+<form action="{{url_for('set_cookie')}}" method="post">
+    <div class="form-group">
+      <label for="exampleInputEmail1">Имя пользователя</label>
+      <br>
+      <input type="text" class="form-control" name="login" placeholder="Имя">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Email пользователя</label>
+        <br>
+        <input type="email" class="form-control" name="email" placeholder="Email">
+      </div>
+      <br>
+    <button type="submit" class="btn btn-primary">Войти</button>
+  </form>
+</div>
+{% endblock %}
