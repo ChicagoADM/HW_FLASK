@@ -4,15 +4,17 @@
 При отправке формы данные должны сохраняться в базе данных, а пароль должен быть зашифрован.
 """
 from flask import Flask, render_template, request, make_response
+from models import db, User
 from flask_wtf.csrf import CSRFProtect
 from forms import RegisterForm, LoginForm
 from markupsafe import escape
-from models import db, User
+
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
-db.init_app(app)
 app.config['SECRET_KEY'] = b'89761078a68c4412e8f210588f84132b2a6d6ea3d60afd9a51aa90aecc52167a'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydb.db'
+db.init_app(app)
+
 csrf = CSRFProtect(app)
 
 @app.cli.command("init-db")
@@ -61,20 +63,19 @@ def delcookie():
     response.set_cookie(*request.cookies, expires=0)
     return response
 
-@app.before_first_request
-def create_tables():
-    db.create_all()
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login/', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    if request.method =='POST':    # если нажали на кнопку
+    if request.method =='POST': 
         username = request.form.get('username')
         password = request.form.get('password')
         if (username, password) in db():
             return "Вы вошли "
         return f'неправильный {escape(username)} логин или пароль'
     return render_template('login.html')
+
+
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
@@ -85,7 +86,7 @@ def register():
         existing_user = User.query.filter((User.name == name) | (User.email == email)).first()
         
         if existing_user:
-            error_msg = 'Username or email already exists.'
+            error_msg = 'Имя пользователя или адрес электронной почты уже существуют.'
             form.name.errors.append(error_msg)
             return render_template('register.html', form=form)
 
@@ -93,10 +94,13 @@ def register():
         user.set_password(password)
         db.session.add(user)
         db.session.commit()
-        return 'Registered success!'
+        return 'Вы успешно зарегистрировались'
     return render_template('register.html', form=form)
 
+
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
     app.run(debug=True, host='0.0.0.0')
 
 

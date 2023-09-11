@@ -5,7 +5,10 @@
 {% endblock %}
 
 {% block content %}
-<h1>Register</h1>
+<div class="container item-flex">
+<div class="reg"> 
+    <center><h1>Регистрация пользователей</h1></center>
+</dev>
 <form method="POST" action="{{ url_for('register') }}">
     {{ form.csrf_token }}
     {% for field in form if field.name != 'csrf_token' %}
@@ -22,7 +25,8 @@
     </p>
     {% endfor %}
     <p>
-        <input type="submit" value="Register">
+        <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
     </p>
 </form>
+</div>
 {% endblock %}
